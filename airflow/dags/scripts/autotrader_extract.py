@@ -8,8 +8,11 @@ from io import StringIO
 import csv
 from datetime import datetime
 from dotenv import load_dotenv
+import json
 
-def extract_listings():
+current_date = datetime.now().strftime('%Y-%m-%d')
+
+def extract_listings(current_date):
     # Scrape results from each page of used Toyota listings
     url = 'https://www.autotrader.com.au/for-sale/used/toyota'
     extracted_listings = []
@@ -29,7 +32,7 @@ def extract_listings():
             if not listings:
                 break
             for listing in listings:
-                price = listing.find('span', class_ = 'carListingPrice--advertisedPrice').text if listing.find('span', class_ = 'carListingPrice--advertisedPrice') != None else 'No price advertised'
+                price = listing.find('span', class_ = 'carListingPrice--advertisedPrice').text if listing.find('span', class_ = 'carListingPrice--advertisedPrice') != None else None
                 odometer = listing.find('span', class_ = 'carListing--mileage').text
                 year = re.search(r'\d+',listing.find('h3', class_ = 'carListing--title').text).group()
                 model = listing.find('strong', class_ = 'mmv').text.split(' ', 1)[1]
@@ -60,20 +63,15 @@ def extract_listings():
 
     credentials = service_account.Credentials.from_service_account_info(credentials_dict)
     client = storage.Client(project = 'autotrader-toyota-dashboard', credentials = credentials)
-
     bucket = client.bucket('autotrader-raw')
 
-    current_date = datetime.now().strftime('%Y-%m-%d')
-
-    extracted_listings_csv = StringIO()
-    csv_file = csv.DictWriter(extracted_listings_csv, fieldnames = extracted_listings[0].keys())
-    csv_file.writeheader()
-    csv_file.writerows(extracted_listings)
-
-    blob = bucket.blob(f'autotrader-raw-{current_date}')
-    blob.upload_from_string(extracted_listings_csv.getvalue(), content_type = 'text/csv')
-    
-    return f'uploaded auto-trader-raw-{current_date} to autotrader-raw bucket'
+    # Convert list of dictionaries to NDJSON format
+    extracted_listings_ndjson = ''
+    for listing in extracted_listings:
+        extracted_listings_ndjson += json.dumps(listing) + '\n'
+    blob = bucket.blob(f'autotrader-raw-{current_date}.json')
+    blob.upload_from_string(extracted_listings_ndjson, content_type = 'application/json')
+    return f'uploaded auto-trader-raw-{current_date}.json to autotrader-raw bucket'
 
 
 
