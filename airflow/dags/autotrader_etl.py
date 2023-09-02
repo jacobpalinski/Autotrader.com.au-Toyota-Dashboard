@@ -54,7 +54,7 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
     )
     remove_nulls = BigQueryExecuteQueryOperator(
         task_id = 'remove_nulls',
-        sql = ''' DELETE autotrader-toyota-dashboard.autotrader_staging.listings_raw
+        sql = '''DELETE autotrader-toyota-dashboard.autotrader_staging.listings_raw
         WHERE
         NOT EXISTS (
         SELECT
@@ -68,12 +68,77 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
         OR MODEL IS NULL
         OR type IS NULL
         OR suburb IS NULL
-        OR state IS NULL ));''',
-        gcp_conn_id = 'google_cloud'
+        OR state IS NULL 
+        ));''',
+        gcp_conn_id = 'google_cloud',
+        use_legacy_sql = False
         )
-
-
-    extract >> create_listings_raw_table >> insert_raw_data_into_listings_raw >> remove_nulls
+    uppercase_columns = BigQueryExecuteQueryOperator(
+        task_id = 'uppercase_columns',
+        sql = '''UPDATE autotrader-toyota-dashboard.autotrader_staging.listings_raw
+        SET model = UPPER(model),
+        type = UPPER(type),
+        suburb = UPPER(suburb)
+        WHERE model IN (
+        SELECT
+        model
+        FROM autotrader-toyota-dashboard.autotrader_staging.listings_raw
+        )
+        AND type IN (
+        SELECT
+        type
+        FROM autotrader-toyota-dashboard.autotrader_staging.listings_raw
+        )
+        AND suburb IN (
+        SELECT
+        suburb
+        FROM autotrader-toyota-dashboard.autotrader_staging.listings_raw
+        );''',
+        gcp_conn_id = 'google_cloud',
+        use_legacy_sql = False)
+    format_columns = BigQueryExecuteQueryOperator(
+        task_id = 'format_columns',
+        sql = '''UPDATE autotrader-toyota-dashboard.autotrader_staging.listings_raw
+        SET price = REPLACE(REPLACE(price, '$', ''), ',', ''),
+        odometer = REPLACE(REPLACE(odometer, 'km', ''), ',', ''),
+        model = REPLACE(model, type, ''),
+        type = REPLACE(REPLACE(type, '(', ''), ')', ''),
+        suburb = LTRIM(REPLACE(REPLACE(suburb, '(', ''), ')', ''))
+        WHERE price in (
+        SELECT
+        price
+        FROM
+        autotrader-toyota-dashboard.autotrader_staging.listings_raw
+        )
+        AND odometer in (
+        SELECT
+        odometer
+        FROM
+        autotrader-toyota-dashboard.autotrader_staging.listings_raw
+        )
+        AND model in (
+        SELECT
+        model
+        FROM
+        autotrader-toyota-dashboard.autotrader_staging.listings_raw
+        )
+        AND type in (
+        SELECT
+        type
+        FROM
+        autotrader-toyota-dashboard.autotrader_staging.listings_raw
+        )
+        AND suburb in (
+        SELECT
+        suburb
+        FROM
+        autotrader-toyota-dashboard.autotrader_staging.listings_raw
+        );''',
+        gcp_conn_id = 'google_cloud',
+        use_legacy_sql = False)
+    
+    extract >> create_listings_raw_table >> insert_raw_data_into_listings_raw >> remove_nulls \
+    >> uppercase_columns >> format_columns
     
 
 
