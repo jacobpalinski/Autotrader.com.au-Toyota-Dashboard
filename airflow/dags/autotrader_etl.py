@@ -136,9 +136,90 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
         );''',
         gcp_conn_id = 'google_cloud',
         use_legacy_sql = False)
+    string_to_int = BigQueryExecuteQueryOperator(
+        task_id = 'string_to_int',
+        sql = '''CREATE OR REPLACE TABLE autotrader-toyota-dashboard.autotrader_staging.listings_raw AS
+        SELECT
+        CAST(price as INT64) as price,
+        CAST(odometer as INT64) as odometer,
+        CAST(year as INT64) as year,
+        model,
+        type,
+        suburb,
+        state
+        FROM autotrader-toyota-dashboard.autotrader_staging.listings_raw;''',
+        gcp_conn_id = 'google_cloud',
+        use_legacy_sql = False
+    )
+    create_car_dim = BigQueryExecuteQueryOperator(
+        task_id = 'create_car_dim',
+        sql = '''CREATE TABLE IF NOT EXISTS
+        autotrader-toyota-dashboard.autotrader_transformed.car_dim 
+        (
+        car_key INT64 NOT NULL,
+        year INT64,
+        model STRING,
+        type STRING,
+        PRIMARY KEY (car_key) NOT ENFORCED
+        );''',
+        gcp_conn_id = 'google_cloud',
+        use_legacy_sql = False
+    )
+    create_location_dim = BigQueryExecuteQueryOperator(
+        task_id = 'create_location_dim',
+        sql = '''CREATE TABLE IF NOT EXISTS
+        autotrader-toyota-dashboard.autotrader_transformed.location_dim 
+        (
+        location_key INT64 NOT NULL,
+        suburb STRING,
+        state STRING,
+        PRIMARY KEY (location_key) NOT ENFORCED
+        );''',
+        gcp_conn_id = 'google_cloud',
+        use_legacy_sql = False
+    )
+    insert_into_car_dim = BigQueryExecuteQueryOperator(
+        task_id = 'insert_into_car_dim',
+        sql = '''INSERT INTO autotrader-toyota-dashboard.autotrader_transformed.car_dim (car_key, year, model, type)
+        SELECT
+        ROW_NUMBER() OVER () as car_key,
+        year,
+        model,
+        type
+        FROM (
+        SELECT 
+        DISTINCT
+        year,
+        model,
+        type
+        FROM
+        autotrader-toyota-dashboard.autotrader_staging.listings_raw
+        );''',
+        gcp_conn_id = 'google_cloud',
+        use_legacy_sql = False
+    )
+    insert_into_location_dim = BigQueryExecuteQueryOperator(
+        task_id = 'insert_into_location_dim',
+        sql = '''INSERT INTO autotrader-toyota-dashboard.autotrader_transformed.location_dim (location_key, suburb, state)
+        SELECT
+        ROW_NUMBER() OVER () as location_key,
+        suburb,
+        state
+        FROM (
+        SELECT 
+        DISTINCT
+        suburb,
+        state
+        FROM
+        autotrader-toyota-dashboard.autotrader_staging.listings_raw
+        );''',
+        gcp_conn_id = 'google_cloud',
+        use_legacy_sql = False
+    )
     
     extract >> create_listings_raw_table >> insert_raw_data_into_listings_raw >> remove_nulls \
-    >> uppercase_columns >> format_columns
+    >> uppercase_columns >> format_columns >> string_to_int >> [create_car_dim, create_location_dim] \
+    >> [insert_into_car_dim, insert_into_location_dim]
     
 
 
