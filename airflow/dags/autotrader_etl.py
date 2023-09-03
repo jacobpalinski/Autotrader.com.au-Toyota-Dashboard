@@ -2,6 +2,7 @@ from datetime import timedelta, datetime
 import pendulum
 from airflow import DAG
 from airflow.operators.python import PythonOperator
+from airflow.operators.empty import EmptyOperator
 from airflow.providers.google.cloud.operators.bigquery import BigQueryCreateEmptyTableOperator, BigQueryExecuteQueryOperator
 from airflow.providers.google.cloud.transfers.gcs_to_bigquery import GCSToBigQueryOperator
 from scripts.autotrader_extract import *
@@ -153,7 +154,7 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
     )
     create_car_dim = BigQueryExecuteQueryOperator(
         task_id = 'create_car_dim',
-        sql = '''CREATE TABLE IF NOT EXISTS
+        sql = '''CREATE OR REPLACE TABLE
         autotrader-toyota-dashboard.autotrader_transformed.car_dim 
         (
         car_key INT64 NOT NULL,
@@ -167,7 +168,7 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
     )
     create_location_dim = BigQueryExecuteQueryOperator(
         task_id = 'create_location_dim',
-        sql = '''CREATE TABLE IF NOT EXISTS
+        sql = '''CREATE OR REPLACE TABLE
         autotrader-toyota-dashboard.autotrader_transformed.location_dim 
         (
         location_key INT64 NOT NULL,
@@ -178,6 +179,7 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
         gcp_conn_id = 'google_cloud',
         use_legacy_sql = False
     )
+    empty = EmptyOperator(task_id = 'empty')
     insert_into_car_dim = BigQueryExecuteQueryOperator(
         task_id = 'insert_into_car_dim',
         sql = '''INSERT INTO autotrader-toyota-dashboard.autotrader_transformed.car_dim (car_key, year, model, type)
@@ -195,8 +197,9 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
         FROM
         autotrader-toyota-dashboard.autotrader_staging.listings_raw
         );''',
+        write_disposition = 'WRITE_TRUNCATE',
         gcp_conn_id = 'google_cloud',
-        use_legacy_sql = False
+        use_legacy_sql = False,
     )
     insert_into_location_dim = BigQueryExecuteQueryOperator(
         task_id = 'insert_into_location_dim',
@@ -213,13 +216,50 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
         FROM
         autotrader-toyota-dashboard.autotrader_staging.listings_raw
         );''',
+        write_disposition = 'WRITE_TRUNCATE',
+        gcp_conn_id = 'google_cloud',
+        use_legacy_sql = False
+    )
+    create_listing_fact = BigQueryExecuteQueryOperator(
+        task_id = 'create_listing_fact',
+        sql = '''CREATE OR REPLACE TABLE
+        autotrader-toyota-dashboard.autotrader_transformed.listing_fact 
+        (
+        car_key INT64 NOT NULL,
+        location_key INT64 NOT NULL,
+        odometer INT64 NOT NULL,
+        price INT64 NOT NULL,
+        PRIMARY KEY (car_key,location_key) NOT ENFORCED,
+        FOREIGN KEY (car_key) REFERENCES autotrader_transformed.car_dim(car_key) NOT ENFORCED,
+        FOREIGN KEY (location_key) REFERENCES autotrader_transformed.location_dim(location_key) NOT ENFORCED
+        );''',
+        gcp_conn_id = 'google_cloud',
+        use_legacy_sql = False
+    )
+    insert_into_listing_fact = BigQueryExecuteQueryOperator(
+        task_id = 'insert_into_listing_fact',
+        sql = '''INSERT INTO autotrader-toyota-dashboard.autotrader_transformed.listing_fact (car_key, location_key, odometer, price)
+        SELECT
+        car_dim.car_key,
+        location_dim.location_key,
+        odometer,
+        price
+        FROM autotrader-toyota-dashboard.autotrader_staging.listings_raw listings_raw
+        JOIN autotrader-toyota-dashboard.autotrader_transformed.car_dim car_dim
+        ON listings_raw.year = car_dim.year
+        AND listings_raw.model = car_dim.model
+        AND listings_raw.type = car_dim.type
+        JOIN autotrader-toyota-dashboard.autotrader_transformed.location_dim location_dim
+        ON listings_raw.suburb = location_dim.suburb
+        AND listings_raw.state = location_dim.state''',
+        write_disposition = 'WRITE_TRUNCATE',
         gcp_conn_id = 'google_cloud',
         use_legacy_sql = False
     )
     
     extract >> create_listings_raw_table >> insert_raw_data_into_listings_raw >> remove_nulls \
     >> uppercase_columns >> format_columns >> string_to_int >> [create_car_dim, create_location_dim] \
-    >> [insert_into_car_dim, insert_into_location_dim]
+    >> empty >> [insert_into_car_dim, insert_into_location_dim] >> create_listing_fact >> insert_into_listing_fact
     
 
 

@@ -1,0 +1,58 @@
+[2023-09-03T09:34:16.306+0000] {logging_mixin.py:151} INFO - Changing /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-03T09:33:41.816579+00:00/task_id=format_columns permission to 509
+[2023-09-03T09:34:16.307+0000] {logging_mixin.py:151} INFO - Failed to change /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-03T09:33:41.816579+00:00/task_id=format_columns permission to 509: [Errno 1] Operation not permitted: '/opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-03T09:33:41.816579+00:00/task_id=format_columns'
+[2023-09-03T09:34:16.341+0000] {logging_mixin.py:151} INFO - Changing /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-03T09:33:41.816579+00:00/task_id=format_columns permission to 509
+[2023-09-03T09:34:16.342+0000] {logging_mixin.py:151} INFO - Failed to change /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-03T09:33:41.816579+00:00/task_id=format_columns permission to 509: [Errno 1] Operation not permitted: '/opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-03T09:33:41.816579+00:00/task_id=format_columns'
+[2023-09-03T09:34:16.369+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: Autotrader_ETL_DAG.format_columns manual__2023-09-03T09:33:41.816579+00:00 [queued]>
+[2023-09-03T09:34:16.379+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: Autotrader_ETL_DAG.format_columns manual__2023-09-03T09:33:41.816579+00:00 [queued]>
+[2023-09-03T09:34:16.380+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 2
+[2023-09-03T09:34:16.397+0000] {taskinstance.py:1382} INFO - Executing <Task(BigQueryExecuteQueryOperator): format_columns> on 2023-09-03 09:33:41.816579+00:00
+[2023-09-03T09:34:16.405+0000] {standard_task_runner.py:57} INFO - Started process 4273 to run task
+[2023-09-03T09:34:16.408+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'Autotrader_ETL_DAG', 'format_columns', 'manual__2023-09-03T09:33:41.816579+00:00', '--job-id', '274', '--raw', '--subdir', 'DAGS_FOLDER/autotrader_etl.py', '--cfg-path', '/tmp/tmpai2ybpob']
+[2023-09-03T09:34:16.411+0000] {standard_task_runner.py:85} INFO - Job 274: Subtask format_columns
+[2023-09-03T09:34:16.460+0000] {logging_mixin.py:151} INFO - Changing /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-03T09:33:41.816579+00:00/task_id=format_columns permission to 509
+[2023-09-03T09:34:16.461+0000] {logging_mixin.py:151} INFO - Failed to change /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-03T09:33:41.816579+00:00/task_id=format_columns permission to 509: [Errno 1] Operation not permitted: '/opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-03T09:33:41.816579+00:00/task_id=format_columns'
+[2023-09-03T09:34:16.463+0000] {task_command.py:415} INFO - Running <TaskInstance: Autotrader_ETL_DAG.format_columns manual__2023-09-03T09:33:41.816579+00:00 [running]> on host 1a0e8b05e04d
+[2023-09-03T09:34:16.562+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='Autotrader_ETL_DAG' AIRFLOW_CTX_TASK_ID='format_columns' AIRFLOW_CTX_EXECUTION_DATE='2023-09-03T09:33:41.816579+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-09-03T09:33:41.816579+00:00'
+[2023-09-03T09:34:16.565+0000] {bigquery.py:1234} INFO - Executing: UPDATE autotrader-toyota-dashboard.autotrader_staging.listings_raw
+        SET price = REPLACE(REPLACE(price, '$', ''), ',', ''),
+        odometer = REPLACE(REPLACE(odometer, 'km', ''), ',', ''),
+        model = REPLACE(model, type, ''),
+        type = REPLACE(REPLACE(type, '(', ''), ')', ''),
+        suburb = LTRIM(REPLACE(REPLACE(suburb, '(', ''), ')', ''))
+        WHERE price in (
+        SELECT
+        price
+        FROM
+        autotrader-toyota-dashboard.autotrader_staging.listings_raw
+        )
+        AND odometer in (
+        SELECT
+        odometer
+        FROM
+        autotrader-toyota-dashboard.autotrader_staging.listings_raw
+        )
+        AND model in (
+        SELECT
+        model
+        FROM
+        autotrader-toyota-dashboard.autotrader_staging.listings_raw
+        )
+        AND type in (
+        SELECT
+        type
+        FROM
+        autotrader-toyota-dashboard.autotrader_staging.listings_raw
+        )
+        AND suburb in (
+        SELECT
+        suburb
+        FROM
+        autotrader-toyota-dashboard.autotrader_staging.listings_raw
+        );
+[2023-09-03T09:34:16.578+0000] {connection.py:232} WARNING - Connection schemes (type: google_cloud_platform) shall not contain '_' according to RFC3986.
+[2023-09-03T09:34:16.583+0000] {base.py:73} INFO - Using connection ID 'google_cloud' for task execution.
+[2023-09-03T09:34:16.589+0000] {logging_mixin.py:151} WARNING - /home/***/.local/lib/python3.8/site-packages/***/providers/google/cloud/hooks/bigquery.py:2109 AirflowProviderDeprecationWarning: This method is deprecated. Please use `BigQueryHook.insert_job` method.
+[2023-09-03T09:34:16.643+0000] {bigquery.py:1596} INFO - Inserting job ***_1693733656642698_3741e595be241c62ec32f94a02a9b83f
+[2023-09-03T09:34:19.700+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=Autotrader_ETL_DAG, task_id=format_columns, execution_date=20230903T093341, start_date=20230903T093416, end_date=20230903T093419
+[2023-09-03T09:34:19.754+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2023-09-03T09:34:19.787+0000] {taskinstance.py:2784} INFO - 1 downstream tasks scheduled from follow-on schedule check
