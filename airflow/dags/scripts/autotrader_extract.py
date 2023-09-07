@@ -21,7 +21,7 @@ def extract_listings(current_date):
     # Bypass cloudflare protection
     scraper = cloudscraper.create_scraper()
     
-    while True and page < 10:
+    while True and page < 100:
         try:
             response = scraper.get(url, params = {'page': page})
             if response.status_code != 200:
@@ -35,11 +35,11 @@ def extract_listings(current_date):
                 price = listing.find('span', class_ = 'carListingPrice--advertisedPrice').text if listing.find('span', class_ = 'carListingPrice--advertisedPrice') != None else None
                 odometer = listing.find('span', class_ = 'carListing--mileage').text
                 year = re.search(r'\d+',listing.find('h3', class_ = 'carListing--title').text).group()
-                model = listing.find('strong', class_ = 'mmv').text.split(' ', 1)[1]
+                car_model = listing.find('strong', class_ = 'mmv').text.split(' ', 1)[1]
                 type = listing.find('span', class_ = 'variant').text
                 suburb = listing.find('div', class_ = 'carListing--location').text.split(', ', 1)[0]
                 state = listing.find('div', class_ = 'carListing--location').text.split(', ', 1)[1].split()[0]
-                extracted_listings.append({'price': price, 'odometer': odometer, 'year': year, 'model': model, 'type': type,
+                extracted_listings.append({'price': price, 'odometer': odometer, 'year': year, 'car_model': car_model, 'type': type,
                 'suburb': suburb, 'state': state})
             page += 1
         except Exception as error:

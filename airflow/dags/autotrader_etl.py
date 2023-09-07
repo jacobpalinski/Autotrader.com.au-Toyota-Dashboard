@@ -28,7 +28,7 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
             {'name': 'price', 'type': 'STRING'},
             {'name': 'odometer', 'type': 'STRING'},
             {'name': 'year', 'type': 'STRING'},
-            {'name': 'model', 'type': 'STRING'},
+            {'name': 'car_model', 'type': 'STRING'},
             {'name': 'type', 'type': 'STRING'},
             {'name': 'suburb', 'type': 'STRING'},
             {'name': 'state', 'type': 'STRING'}
@@ -44,7 +44,7 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
             {'name': 'price', 'type': 'STRING'},
             {'name': 'odometer', 'type': 'STRING'},
             {'name': 'year', 'type': 'STRING'},
-            {'name': 'model', 'type': 'STRING'},
+            {'name': 'car_model', 'type': 'STRING'},
             {'name': 'type', 'type': 'STRING'},
             {'name': 'suburb', 'type': 'STRING'},
             {'name': 'state', 'type': 'STRING'}
@@ -66,23 +66,24 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
         NOT ( price IS NULL
         OR odometer IS NULL
         OR year IS NULL
-        OR MODEL IS NULL
+        OR car_model IS NULL
         OR type IS NULL
         OR suburb IS NULL
         OR state IS NULL 
-        ));''',
+        ))
+        OR odometer = '';''',
         gcp_conn_id = 'google_cloud',
         use_legacy_sql = False
         )
     uppercase_columns = BigQueryExecuteQueryOperator(
         task_id = 'uppercase_columns',
         sql = '''UPDATE autotrader-toyota-dashboard.autotrader_staging.listings_raw
-        SET model = UPPER(model),
+        SET car_model = UPPER(car_model),
         type = UPPER(type),
         suburb = UPPER(suburb)
-        WHERE model IN (
+        WHERE car_model IN (
         SELECT
-        model
+        car_model
         FROM autotrader-toyota-dashboard.autotrader_staging.listings_raw
         )
         AND type IN (
@@ -102,8 +103,10 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
         sql = '''UPDATE autotrader-toyota-dashboard.autotrader_staging.listings_raw
         SET price = REPLACE(REPLACE(price, '$', ''), ',', ''),
         odometer = REPLACE(REPLACE(odometer, 'km', ''), ',', ''),
-        model = REPLACE(model, type, ''),
-        type = REPLACE(REPLACE(type, '(', ''), ')', ''),
+        car_model = REPLACE(car_model, type, ''),
+        type = CASE WHEN type = '' THEN 'NOT SPECIFIED'
+        ELSE REPLACE(REPLACE(type, '(', ''), ')', '')
+        END,
         suburb = LTRIM(REPLACE(REPLACE(suburb, '(', ''), ')', ''))
         WHERE price in (
         SELECT
@@ -117,9 +120,9 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
         FROM
         autotrader-toyota-dashboard.autotrader_staging.listings_raw
         )
-        AND model in (
+        AND car_model in (
         SELECT
-        model
+        car_model
         FROM
         autotrader-toyota-dashboard.autotrader_staging.listings_raw
         )
@@ -144,7 +147,7 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
         CAST(price as INT64) as price,
         CAST(odometer as INT64) as odometer,
         CAST(year as INT64) as year,
-        model,
+        car_model,
         type,
         suburb,
         state
@@ -159,7 +162,7 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
         (
         car_key INT64 NOT NULL,
         year INT64,
-        model STRING,
+        car_model STRING,
         type STRING,
         PRIMARY KEY (car_key) NOT ENFORCED
         );''',
@@ -182,17 +185,17 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
     empty = EmptyOperator(task_id = 'empty')
     insert_into_car_dim = BigQueryExecuteQueryOperator(
         task_id = 'insert_into_car_dim',
-        sql = '''INSERT INTO autotrader-toyota-dashboard.autotrader_transformed.car_dim (car_key, year, model, type)
+        sql = '''INSERT INTO autotrader-toyota-dashboard.autotrader_transformed.car_dim (car_key, year, car_model, type)
         SELECT
         ROW_NUMBER() OVER () as car_key,
         year,
-        model,
+        car_model,
         type
         FROM (
         SELECT 
         DISTINCT
         year,
-        model,
+        car_model,
         type
         FROM
         autotrader-toyota-dashboard.autotrader_staging.listings_raw
@@ -247,7 +250,7 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
         FROM autotrader-toyota-dashboard.autotrader_staging.listings_raw listings_raw
         JOIN autotrader-toyota-dashboard.autotrader_transformed.car_dim car_dim
         ON listings_raw.year = car_dim.year
-        AND listings_raw.model = car_dim.model
+        AND listings_raw.car_model = car_dim.car_model
         AND listings_raw.type = car_dim.type
         JOIN autotrader-toyota-dashboard.autotrader_transformed.location_dim location_dim
         ON listings_raw.suburb = location_dim.suburb
