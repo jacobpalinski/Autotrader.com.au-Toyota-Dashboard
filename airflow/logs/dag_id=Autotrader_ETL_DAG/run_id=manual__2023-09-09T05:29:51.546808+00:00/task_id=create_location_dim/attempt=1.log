@@ -1,0 +1,30 @@
+[2023-09-09T05:32:22.864+0000] {logging_mixin.py:151} INFO - Changing /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T05:29:51.546808+00:00/task_id=create_location_dim permission to 509
+[2023-09-09T05:32:22.865+0000] {logging_mixin.py:151} INFO - Failed to change /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T05:29:51.546808+00:00/task_id=create_location_dim permission to 509: [Errno 1] Operation not permitted: '/opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T05:29:51.546808+00:00/task_id=create_location_dim'
+[2023-09-09T05:32:22.913+0000] {logging_mixin.py:151} INFO - Changing /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T05:29:51.546808+00:00/task_id=create_location_dim permission to 509
+[2023-09-09T05:32:22.915+0000] {logging_mixin.py:151} INFO - Failed to change /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T05:29:51.546808+00:00/task_id=create_location_dim permission to 509: [Errno 1] Operation not permitted: '/opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T05:29:51.546808+00:00/task_id=create_location_dim'
+[2023-09-09T05:32:22.955+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: Autotrader_ETL_DAG.create_location_dim manual__2023-09-09T05:29:51.546808+00:00 [queued]>
+[2023-09-09T05:32:22.970+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: Autotrader_ETL_DAG.create_location_dim manual__2023-09-09T05:29:51.546808+00:00 [queued]>
+[2023-09-09T05:32:22.972+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 2
+[2023-09-09T05:32:22.993+0000] {taskinstance.py:1382} INFO - Executing <Task(BigQueryExecuteQueryOperator): create_location_dim> on 2023-09-09 05:29:51.546808+00:00
+[2023-09-09T05:32:23.005+0000] {standard_task_runner.py:57} INFO - Started process 3796 to run task
+[2023-09-09T05:32:23.008+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'Autotrader_ETL_DAG', 'create_location_dim', 'manual__2023-09-09T05:29:51.546808+00:00', '--job-id', '513', '--raw', '--subdir', 'DAGS_FOLDER/autotrader_etl.py', '--cfg-path', '/tmp/tmp8aca52u2']
+[2023-09-09T05:32:23.013+0000] {standard_task_runner.py:85} INFO - Job 513: Subtask create_location_dim
+[2023-09-09T05:32:23.088+0000] {logging_mixin.py:151} INFO - Changing /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T05:29:51.546808+00:00/task_id=create_location_dim permission to 509
+[2023-09-09T05:32:23.089+0000] {logging_mixin.py:151} INFO - Failed to change /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T05:29:51.546808+00:00/task_id=create_location_dim permission to 509: [Errno 1] Operation not permitted: '/opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T05:29:51.546808+00:00/task_id=create_location_dim'
+[2023-09-09T05:32:23.093+0000] {task_command.py:415} INFO - Running <TaskInstance: Autotrader_ETL_DAG.create_location_dim manual__2023-09-09T05:29:51.546808+00:00 [running]> on host 412bb32711f9
+[2023-09-09T05:32:23.234+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='Autotrader_ETL_DAG' AIRFLOW_CTX_TASK_ID='create_location_dim' AIRFLOW_CTX_EXECUTION_DATE='2023-09-09T05:29:51.546808+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-09-09T05:29:51.546808+00:00'
+[2023-09-09T05:32:23.239+0000] {bigquery.py:1234} INFO - Executing: CREATE OR REPLACE TABLE
+        autotrader-toyota-dashboard.autotrader_transformed.location_dim 
+        (
+        location_key INT64 NOT NULL,
+        suburb STRING,
+        state STRING,
+        PRIMARY KEY (location_key) NOT ENFORCED
+        );
+[2023-09-09T05:32:23.254+0000] {connection.py:232} WARNING - Connection schemes (type: google_cloud_platform) shall not contain '_' according to RFC3986.
+[2023-09-09T05:32:23.262+0000] {base.py:73} INFO - Using connection ID 'google_cloud' for task execution.
+[2023-09-09T05:32:23.272+0000] {logging_mixin.py:151} WARNING - /home/***/.local/lib/python3.8/site-packages/***/providers/google/cloud/hooks/bigquery.py:2109 AirflowProviderDeprecationWarning: This method is deprecated. Please use `BigQueryHook.insert_job` method.
+[2023-09-09T05:32:23.340+0000] {bigquery.py:1596} INFO - Inserting job ***_1694237543339330_9f9678ac1f542b93797ff6e2b6abfb1d
+[2023-09-09T05:32:24.864+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=Autotrader_ETL_DAG, task_id=create_location_dim, execution_date=20230909T052951, start_date=20230909T053222, end_date=20230909T053224
+[2023-09-09T05:32:24.912+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2023-09-09T05:32:24.976+0000] {taskinstance.py:2784} INFO - 0 downstream tasks scheduled from follow-on schedule check
