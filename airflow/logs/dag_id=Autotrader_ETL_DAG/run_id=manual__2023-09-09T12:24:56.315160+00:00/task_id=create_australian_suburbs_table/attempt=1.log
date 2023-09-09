@@ -1,0 +1,22 @@
+[2023-09-09T12:26:31.748+0000] {logging_mixin.py:151} INFO - Changing /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T12:24:56.315160+00:00/task_id=create_australian_suburbs_table permission to 509
+[2023-09-09T12:26:31.749+0000] {logging_mixin.py:151} INFO - Failed to change /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T12:24:56.315160+00:00/task_id=create_australian_suburbs_table permission to 509: [Errno 1] Operation not permitted: '/opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T12:24:56.315160+00:00/task_id=create_australian_suburbs_table'
+[2023-09-09T12:26:31.783+0000] {logging_mixin.py:151} INFO - Changing /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T12:24:56.315160+00:00/task_id=create_australian_suburbs_table permission to 509
+[2023-09-09T12:26:31.784+0000] {logging_mixin.py:151} INFO - Failed to change /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T12:24:56.315160+00:00/task_id=create_australian_suburbs_table permission to 509: [Errno 1] Operation not permitted: '/opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T12:24:56.315160+00:00/task_id=create_australian_suburbs_table'
+[2023-09-09T12:26:31.809+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: Autotrader_ETL_DAG.create_australian_suburbs_table manual__2023-09-09T12:24:56.315160+00:00 [queued]>
+[2023-09-09T12:26:31.819+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: Autotrader_ETL_DAG.create_australian_suburbs_table manual__2023-09-09T12:24:56.315160+00:00 [queued]>
+[2023-09-09T12:26:31.820+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 2
+[2023-09-09T12:26:31.833+0000] {taskinstance.py:1382} INFO - Executing <Task(BigQueryCreateEmptyTableOperator): create_australian_suburbs_table> on 2023-09-09 12:24:56.315160+00:00
+[2023-09-09T12:26:31.840+0000] {standard_task_runner.py:57} INFO - Started process 5003 to run task
+[2023-09-09T12:26:31.842+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'Autotrader_ETL_DAG', 'create_australian_suburbs_table', 'manual__2023-09-09T12:24:56.315160+00:00', '--job-id', '548', '--raw', '--subdir', 'DAGS_FOLDER/autotrader_etl.py', '--cfg-path', '/tmp/tmpn9p_97mp']
+[2023-09-09T12:26:31.845+0000] {standard_task_runner.py:85} INFO - Job 548: Subtask create_australian_suburbs_table
+[2023-09-09T12:26:31.892+0000] {logging_mixin.py:151} INFO - Changing /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T12:24:56.315160+00:00/task_id=create_australian_suburbs_table permission to 509
+[2023-09-09T12:26:31.893+0000] {logging_mixin.py:151} INFO - Failed to change /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T12:24:56.315160+00:00/task_id=create_australian_suburbs_table permission to 509: [Errno 1] Operation not permitted: '/opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T12:24:56.315160+00:00/task_id=create_australian_suburbs_table'
+[2023-09-09T12:26:31.896+0000] {task_command.py:415} INFO - Running <TaskInstance: Autotrader_ETL_DAG.create_australian_suburbs_table manual__2023-09-09T12:24:56.315160+00:00 [running]> on host 412bb32711f9
+[2023-09-09T12:26:31.985+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='Autotrader_ETL_DAG' AIRFLOW_CTX_TASK_ID='create_australian_suburbs_table' AIRFLOW_CTX_EXECUTION_DATE='2023-09-09T12:24:56.315160+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-09-09T12:24:56.315160+00:00'
+[2023-09-09T12:26:32.000+0000] {connection.py:232} WARNING - Connection schemes (type: google_cloud_platform) shall not contain '_' according to RFC3986.
+[2023-09-09T12:26:32.007+0000] {base.py:73} INFO - Using connection ID 'google_cloud' for task execution.
+[2023-09-09T12:26:32.008+0000] {bigquery.py:1507} INFO - Creating table
+[2023-09-09T12:26:33.191+0000] {bigquery.py:1535} INFO - Table autotrader_staging.australian_suburbs already exists.
+[2023-09-09T12:26:33.227+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=Autotrader_ETL_DAG, task_id=create_australian_suburbs_table, execution_date=20230909T122456, start_date=20230909T122631, end_date=20230909T122633
+[2023-09-09T12:26:33.262+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2023-09-09T12:26:33.294+0000] {taskinstance.py:2784} INFO - 0 downstream tasks scheduled from follow-on schedule check

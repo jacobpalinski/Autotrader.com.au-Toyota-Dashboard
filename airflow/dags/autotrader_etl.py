@@ -208,6 +208,7 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
         location_key INT64 NOT NULL,
         suburb STRING,
         state STRING,
+        geolocation GEOGRAPHY,
         PRIMARY KEY (location_key) NOT ENFORCED
         );''',
         gcp_conn_id = 'google_cloud',
@@ -237,18 +238,24 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
     )
     insert_into_location_dim = BigQueryExecuteQueryOperator(
         task_id = 'insert_into_location_dim',
-        sql = '''INSERT INTO autotrader-toyota-dashboard.autotrader_transformed.location_dim (location_key, suburb, state)
+        sql = '''INSERT INTO autotrader-toyota-dashboard.autotrader_transformed.location_dim (location_key, suburb, state, geolocation)
         SELECT
         ROW_NUMBER() OVER () as location_key,
         suburb,
-        state
+        state,
+        ST_GEOGPOINT(longitude, latitude) as geolocation
         FROM (
         SELECT 
         DISTINCT
-        suburb,
-        state
+        listings_raw.suburb,
+        listings_raw.state,
+        latitude,
+        longitude
         FROM
-        autotrader-toyota-dashboard.autotrader_staging.listings_raw
+        autotrader-toyota-dashboard.autotrader_staging.listings_raw AS listings_raw
+        JOIN autotrader-toyota-dashboard.autotrader_staging.australian_suburbs AS australian_suburbs
+        ON listings_raw.suburb = australian_suburbs.suburb
+        AND listings_raw.state = australian_suburbs.state
         );''',
         write_disposition = 'WRITE_TRUNCATE',
         gcp_conn_id = 'google_cloud',
