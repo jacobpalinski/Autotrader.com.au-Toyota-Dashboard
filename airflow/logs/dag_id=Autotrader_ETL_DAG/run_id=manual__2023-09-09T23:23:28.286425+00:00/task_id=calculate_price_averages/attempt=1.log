@@ -1,0 +1,62 @@
+[2023-09-09T23:26:43.576+0000] {logging_mixin.py:151} INFO - Changing /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T23:23:28.286425+00:00/task_id=calculate_price_averages permission to 509
+[2023-09-09T23:26:43.577+0000] {logging_mixin.py:151} INFO - Failed to change /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T23:23:28.286425+00:00/task_id=calculate_price_averages permission to 509: [Errno 1] Operation not permitted: '/opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T23:23:28.286425+00:00/task_id=calculate_price_averages'
+[2023-09-09T23:26:43.632+0000] {logging_mixin.py:151} INFO - Changing /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T23:23:28.286425+00:00/task_id=calculate_price_averages permission to 509
+[2023-09-09T23:26:43.634+0000] {logging_mixin.py:151} INFO - Failed to change /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T23:23:28.286425+00:00/task_id=calculate_price_averages permission to 509: [Errno 1] Operation not permitted: '/opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T23:23:28.286425+00:00/task_id=calculate_price_averages'
+[2023-09-09T23:26:43.683+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: Autotrader_ETL_DAG.calculate_price_averages manual__2023-09-09T23:23:28.286425+00:00 [queued]>
+[2023-09-09T23:26:43.711+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: Autotrader_ETL_DAG.calculate_price_averages manual__2023-09-09T23:23:28.286425+00:00 [queued]>
+[2023-09-09T23:26:43.713+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 2
+[2023-09-09T23:26:43.742+0000] {taskinstance.py:1382} INFO - Executing <Task(BigQueryExecuteQueryOperator): calculate_price_averages> on 2023-09-09 23:23:28.286425+00:00
+[2023-09-09T23:26:43.796+0000] {standard_task_runner.py:57} INFO - Started process 572 to run task
+[2023-09-09T23:26:43.801+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'Autotrader_ETL_DAG', 'calculate_price_averages', 'manual__2023-09-09T23:23:28.286425+00:00', '--job-id', '578', '--raw', '--subdir', 'DAGS_FOLDER/autotrader_etl.py', '--cfg-path', '/tmp/tmpbyh5rw7t']
+[2023-09-09T23:26:43.805+0000] {standard_task_runner.py:85} INFO - Job 578: Subtask calculate_price_averages
+[2023-09-09T23:26:43.887+0000] {logging_mixin.py:151} INFO - Changing /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T23:23:28.286425+00:00/task_id=calculate_price_averages permission to 509
+[2023-09-09T23:26:43.890+0000] {logging_mixin.py:151} INFO - Failed to change /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T23:23:28.286425+00:00/task_id=calculate_price_averages permission to 509: [Errno 1] Operation not permitted: '/opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T23:23:28.286425+00:00/task_id=calculate_price_averages'
+[2023-09-09T23:26:43.898+0000] {task_command.py:415} INFO - Running <TaskInstance: Autotrader_ETL_DAG.calculate_price_averages manual__2023-09-09T23:23:28.286425+00:00 [running]> on host 412bb32711f9
+[2023-09-09T23:26:44.050+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='Autotrader_ETL_DAG' AIRFLOW_CTX_TASK_ID='calculate_price_averages' AIRFLOW_CTX_EXECUTION_DATE='2023-09-09T23:23:28.286425+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-09-09T23:23:28.286425+00:00'
+[2023-09-09T23:26:44.054+0000] {bigquery.py:1234} INFO - Executing: CREATE OR REPLACE TABLE autotrader-toyota-dashboard.autotrader_looker.listings_all AS
+        WITH calc_avg_price_state AS (
+        SELECT
+        state,
+        year,
+        car_model,
+        AVG(price) AS avg_price_state
+        FROM autotrader-toyota-dashboard.autotrader_looker.listings_all
+        GROUP BY state, year, car_model),
+
+        calc_avg_price_national AS (
+        SELECT
+        year,
+        car_model,
+        AVG(price) AS avg_price_national
+        FROM autotrader-toyota-dashboard.autotrader_looker.listings_all
+        GROUP BY year, car_model
+        )
+
+        SELECT 
+        location_key,
+        suburb,
+        listings_all.state,
+        geolocation,
+        car_key,
+        listings_all.year,
+        listings_all.car_model,
+        type,
+        odometer,
+        price,
+        avg_price_state,
+        avg_price_national
+        FROM autotrader-toyota-dashboard.autotrader_looker.listings_all AS listings_all
+        JOIN calc_avg_price_state
+        ON listings_all.state = calc_avg_price_state.state
+        AND listings_all.year = calc_avg_price_state.year
+        AND listings_all.car_model = calc_avg_price_state.car_model
+        JOIN calc_avg_price_national
+        ON listings_all.year = calc_avg_price_national.year
+        AND listings_all.car_model = calc_avg_price_national.car_model;
+[2023-09-09T23:26:44.071+0000] {connection.py:232} WARNING - Connection schemes (type: google_cloud_platform) shall not contain '_' according to RFC3986.
+[2023-09-09T23:26:44.078+0000] {base.py:73} INFO - Using connection ID 'google_cloud' for task execution.
+[2023-09-09T23:26:44.088+0000] {logging_mixin.py:151} WARNING - /home/***/.local/lib/python3.8/site-packages/***/providers/google/cloud/hooks/bigquery.py:2109 AirflowProviderDeprecationWarning: This method is deprecated. Please use `BigQueryHook.insert_job` method.
+[2023-09-09T23:26:44.173+0000] {bigquery.py:1596} INFO - Inserting job ***_1694302004172186_95bcc61ac82b6f8ca9a90e992a90097c
+[2023-09-09T23:26:47.033+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=Autotrader_ETL_DAG, task_id=calculate_price_averages, execution_date=20230909T232328, start_date=20230909T232643, end_date=20230909T232647
+[2023-09-09T23:26:47.075+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2023-09-09T23:26:47.103+0000] {taskinstance.py:2784} INFO - 0 downstream tasks scheduled from follow-on schedule check

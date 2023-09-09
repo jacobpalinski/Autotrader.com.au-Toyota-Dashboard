@@ -297,10 +297,79 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
         gcp_conn_id = 'google_cloud',
         use_legacy_sql = False
     )
+    create_looker_table = BigQueryExecuteQueryOperator(
+        task_id = 'create_looker_table',
+        sql = '''CREATE OR REPLACE TABLE autotrader-toyota-dashboard.autotrader_looker.listings_all AS
+        SELECT 
+        listing_fact.location_key,
+        suburb,
+        state,
+        geolocation,
+        listing_fact.car_key,
+        year,
+        car_model,
+        type,
+        odometer,
+        price
+        FROM autotrader-toyota-dashboard.autotrader_transformed.listing_fact AS listing_fact
+        JOIN autotrader-toyota-dashboard.autotrader_transformed.location_dim AS location_dim
+        ON listing_fact.location_key = location_dim.location_key
+        JOIN autotrader-toyota-dashboard.autotrader_transformed.car_dim AS car_dim
+        ON listing_fact.car_key = car_dim.car_key;''',
+        write_disposition = 'WRITE_TRUNCATE',
+        gcp_conn_id = 'google_cloud',
+        use_legacy_sql = False
+    )
+    calculate_price_averages = BigQueryExecuteQueryOperator(
+        task_id = 'calculate_price_averages',
+        sql = '''CREATE OR REPLACE TABLE autotrader-toyota-dashboard.autotrader_looker.listings_all AS
+        WITH calc_avg_price_state AS (
+        SELECT
+        state,
+        year,
+        car_model,
+        AVG(price) AS avg_price_state
+        FROM autotrader-toyota-dashboard.autotrader_looker.listings_all
+        GROUP BY state, year, car_model),
+
+        calc_avg_price_national AS (
+        SELECT
+        year,
+        car_model,
+        AVG(price) AS avg_price_national
+        FROM autotrader-toyota-dashboard.autotrader_looker.listings_all
+        GROUP BY year, car_model
+        )
+
+        SELECT 
+        location_key,
+        suburb,
+        listings_all.state,
+        geolocation,
+        car_key,
+        listings_all.year,
+        listings_all.car_model,
+        type,
+        odometer,
+        price,
+        avg_price_state,
+        avg_price_national
+        FROM autotrader-toyota-dashboard.autotrader_looker.listings_all AS listings_all
+        JOIN calc_avg_price_state
+        ON listings_all.state = calc_avg_price_state.state
+        AND listings_all.year = calc_avg_price_state.year
+        AND listings_all.car_model = calc_avg_price_state.car_model
+        JOIN calc_avg_price_national
+        ON listings_all.year = calc_avg_price_national.year
+        AND listings_all.car_model = calc_avg_price_national.car_model;''',
+        write_disposition = 'WRITE_TRUNCATE',
+        gcp_conn_id = 'google_cloud',
+        use_legacy_sql = False
+    )
     
     extract >> [create_listings_raw_table, create_australian_suburbs_table] >> empty1 >> [insert_raw_data_into_listings_raw, insert_csv_data_into_australian_suburbs_table] \
     >> remove_nulls >> uppercase_columns >> format_columns >> string_to_int >> [create_car_dim, create_location_dim] \
-    >> empty2 >> [insert_into_car_dim, insert_into_location_dim] >> create_listing_fact >> insert_into_listing_fact
+    >> empty2 >> [insert_into_car_dim, insert_into_location_dim] >> create_listing_fact >> insert_into_listing_fact >> create_looker_table >> calculate_price_averages
     
 
 

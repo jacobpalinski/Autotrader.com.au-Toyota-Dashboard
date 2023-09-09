@@ -1,0 +1,37 @@
+[2023-09-09T23:26:16.702+0000] {logging_mixin.py:151} INFO - Changing /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T23:23:28.286425+00:00/task_id=insert_into_car_dim permission to 509
+[2023-09-09T23:26:16.704+0000] {logging_mixin.py:151} INFO - Failed to change /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T23:23:28.286425+00:00/task_id=insert_into_car_dim permission to 509: [Errno 1] Operation not permitted: '/opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T23:23:28.286425+00:00/task_id=insert_into_car_dim'
+[2023-09-09T23:26:16.755+0000] {logging_mixin.py:151} INFO - Changing /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T23:23:28.286425+00:00/task_id=insert_into_car_dim permission to 509
+[2023-09-09T23:26:16.756+0000] {logging_mixin.py:151} INFO - Failed to change /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T23:23:28.286425+00:00/task_id=insert_into_car_dim permission to 509: [Errno 1] Operation not permitted: '/opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T23:23:28.286425+00:00/task_id=insert_into_car_dim'
+[2023-09-09T23:26:16.807+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: Autotrader_ETL_DAG.insert_into_car_dim manual__2023-09-09T23:23:28.286425+00:00 [queued]>
+[2023-09-09T23:26:16.825+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: Autotrader_ETL_DAG.insert_into_car_dim manual__2023-09-09T23:23:28.286425+00:00 [queued]>
+[2023-09-09T23:26:16.827+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 2
+[2023-09-09T23:26:16.850+0000] {taskinstance.py:1382} INFO - Executing <Task(BigQueryExecuteQueryOperator): insert_into_car_dim> on 2023-09-09 23:23:28.286425+00:00
+[2023-09-09T23:26:16.860+0000] {standard_task_runner.py:57} INFO - Started process 559 to run task
+[2023-09-09T23:26:16.864+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'Autotrader_ETL_DAG', 'insert_into_car_dim', 'manual__2023-09-09T23:23:28.286425+00:00', '--job-id', '574', '--raw', '--subdir', 'DAGS_FOLDER/autotrader_etl.py', '--cfg-path', '/tmp/tmpb37f5vgo']
+[2023-09-09T23:26:16.868+0000] {standard_task_runner.py:85} INFO - Job 574: Subtask insert_into_car_dim
+[2023-09-09T23:26:16.941+0000] {logging_mixin.py:151} INFO - Changing /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T23:23:28.286425+00:00/task_id=insert_into_car_dim permission to 509
+[2023-09-09T23:26:16.942+0000] {logging_mixin.py:151} INFO - Failed to change /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T23:23:28.286425+00:00/task_id=insert_into_car_dim permission to 509: [Errno 1] Operation not permitted: '/opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-09T23:23:28.286425+00:00/task_id=insert_into_car_dim'
+[2023-09-09T23:26:16.947+0000] {task_command.py:415} INFO - Running <TaskInstance: Autotrader_ETL_DAG.insert_into_car_dim manual__2023-09-09T23:23:28.286425+00:00 [running]> on host 412bb32711f9
+[2023-09-09T23:26:17.087+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='Autotrader_ETL_DAG' AIRFLOW_CTX_TASK_ID='insert_into_car_dim' AIRFLOW_CTX_EXECUTION_DATE='2023-09-09T23:23:28.286425+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-09-09T23:23:28.286425+00:00'
+[2023-09-09T23:26:17.093+0000] {bigquery.py:1234} INFO - Executing: INSERT INTO autotrader-toyota-dashboard.autotrader_transformed.car_dim (car_key, year, car_model, type)
+        SELECT
+        ROW_NUMBER() OVER () as car_key,
+        year,
+        car_model,
+        type
+        FROM (
+        SELECT 
+        DISTINCT
+        year,
+        car_model,
+        type
+        FROM
+        autotrader-toyota-dashboard.autotrader_staging.listings_raw
+        );
+[2023-09-09T23:26:17.109+0000] {connection.py:232} WARNING - Connection schemes (type: google_cloud_platform) shall not contain '_' according to RFC3986.
+[2023-09-09T23:26:17.116+0000] {base.py:73} INFO - Using connection ID 'google_cloud' for task execution.
+[2023-09-09T23:26:17.126+0000] {logging_mixin.py:151} WARNING - /home/***/.local/lib/python3.8/site-packages/***/providers/google/cloud/hooks/bigquery.py:2109 AirflowProviderDeprecationWarning: This method is deprecated. Please use `BigQueryHook.insert_job` method.
+[2023-09-09T23:26:17.211+0000] {bigquery.py:1596} INFO - Inserting job ***_1694301977211302_de58b3882b793b75c0aa31050777915d
+[2023-09-09T23:26:20.236+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=Autotrader_ETL_DAG, task_id=insert_into_car_dim, execution_date=20230909T232328, start_date=20230909T232616, end_date=20230909T232620
+[2023-09-09T23:26:20.298+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2023-09-09T23:26:20.357+0000] {taskinstance.py:2784} INFO - 0 downstream tasks scheduled from follow-on schedule check
