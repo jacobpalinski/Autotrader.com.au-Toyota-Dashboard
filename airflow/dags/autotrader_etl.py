@@ -134,7 +134,10 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
         sql = '''UPDATE autotrader-toyota-dashboard.autotrader_staging.listings_raw
         SET price = REPLACE(REPLACE(price, '$', ''), ',', ''),
         odometer = REPLACE(REPLACE(odometer, 'km', ''), ',', ''),
-        car_model = REPLACE(car_model, type, ''),
+        car_model = CASE 
+        WHEN car_model LIKE '%LAND CRUISER%' THEN REGEXP_REPLACE(REPLACE(car_model, type, ''), r'(\S+)\s(.+)', r'\\1\\2')
+        ELSE REPLACE(car_model, type, '')
+        END,
         type = CASE WHEN type = '' THEN 'NOT SPECIFIED'
         ELSE REPLACE(REPLACE(type, '(', ''), ')', '')
         END,
