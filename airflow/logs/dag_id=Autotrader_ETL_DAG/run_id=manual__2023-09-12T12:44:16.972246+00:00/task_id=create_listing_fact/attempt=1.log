@@ -1,0 +1,33 @@
+[2023-09-12T13:03:36.311+0000] {logging_mixin.py:151} INFO - Changing /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-12T12:44:16.972246+00:00/task_id=create_listing_fact permission to 509
+[2023-09-12T13:03:36.311+0000] {logging_mixin.py:151} INFO - Failed to change /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-12T12:44:16.972246+00:00/task_id=create_listing_fact permission to 509: [Errno 1] Operation not permitted: '/opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-12T12:44:16.972246+00:00/task_id=create_listing_fact'
+[2023-09-12T13:03:36.337+0000] {logging_mixin.py:151} INFO - Changing /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-12T12:44:16.972246+00:00/task_id=create_listing_fact permission to 509
+[2023-09-12T13:03:36.338+0000] {logging_mixin.py:151} INFO - Failed to change /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-12T12:44:16.972246+00:00/task_id=create_listing_fact permission to 509: [Errno 1] Operation not permitted: '/opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-12T12:44:16.972246+00:00/task_id=create_listing_fact'
+[2023-09-12T13:03:36.360+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: Autotrader_ETL_DAG.create_listing_fact manual__2023-09-12T12:44:16.972246+00:00 [queued]>
+[2023-09-12T13:03:36.369+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: Autotrader_ETL_DAG.create_listing_fact manual__2023-09-12T12:44:16.972246+00:00 [queued]>
+[2023-09-12T13:03:36.370+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 2
+[2023-09-12T13:03:36.381+0000] {taskinstance.py:1382} INFO - Executing <Task(BigQueryExecuteQueryOperator): create_listing_fact> on 2023-09-12 12:44:16.972246+00:00
+[2023-09-12T13:03:36.388+0000] {standard_task_runner.py:57} INFO - Started process 834 to run task
+[2023-09-12T13:03:36.390+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'Autotrader_ETL_DAG', 'create_listing_fact', 'manual__2023-09-12T12:44:16.972246+00:00', '--job-id', '684', '--raw', '--subdir', 'DAGS_FOLDER/autotrader_etl.py', '--cfg-path', '/tmp/tmpy2cj24h2']
+[2023-09-12T13:03:36.392+0000] {standard_task_runner.py:85} INFO - Job 684: Subtask create_listing_fact
+[2023-09-12T13:03:36.429+0000] {logging_mixin.py:151} INFO - Changing /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-12T12:44:16.972246+00:00/task_id=create_listing_fact permission to 509
+[2023-09-12T13:03:36.430+0000] {logging_mixin.py:151} INFO - Failed to change /opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-12T12:44:16.972246+00:00/task_id=create_listing_fact permission to 509: [Errno 1] Operation not permitted: '/opt/***/logs/dag_id=Autotrader_ETL_DAG/run_id=manual__2023-09-12T12:44:16.972246+00:00/task_id=create_listing_fact'
+[2023-09-12T13:03:36.432+0000] {task_command.py:415} INFO - Running <TaskInstance: Autotrader_ETL_DAG.create_listing_fact manual__2023-09-12T12:44:16.972246+00:00 [running]> on host 412bb32711f9
+[2023-09-12T13:03:36.501+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='Autotrader_ETL_DAG' AIRFLOW_CTX_TASK_ID='create_listing_fact' AIRFLOW_CTX_EXECUTION_DATE='2023-09-12T12:44:16.972246+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-09-12T12:44:16.972246+00:00'
+[2023-09-12T13:03:36.503+0000] {bigquery.py:1234} INFO - Executing: CREATE OR REPLACE TABLE
+        autotrader-toyota-dashboard.autotrader_transformed.listing_fact 
+        (
+        car_key INT64 NOT NULL,
+        location_key INT64 NOT NULL,
+        odometer INT64 NOT NULL,
+        price INT64 NOT NULL,
+        PRIMARY KEY (car_key,location_key) NOT ENFORCED,
+        FOREIGN KEY (car_key) REFERENCES autotrader_transformed.car_dim(car_key) NOT ENFORCED,
+        FOREIGN KEY (location_key) REFERENCES autotrader_transformed.location_dim(location_key) NOT ENFORCED
+        );
+[2023-09-12T13:03:36.511+0000] {connection.py:232} WARNING - Connection schemes (type: google_cloud_platform) shall not contain '_' according to RFC3986.
+[2023-09-12T13:03:36.515+0000] {base.py:73} INFO - Using connection ID 'google_cloud' for task execution.
+[2023-09-12T13:03:36.519+0000] {logging_mixin.py:151} WARNING - /home/***/.local/lib/python3.8/site-packages/***/providers/google/cloud/hooks/bigquery.py:2109 AirflowProviderDeprecationWarning: This method is deprecated. Please use `BigQueryHook.insert_job` method.
+[2023-09-12T13:03:36.555+0000] {bigquery.py:1596} INFO - Inserting job ***_1694523816555152_9a9e6920d9f2367cd4240a4627599433
+[2023-09-12T13:03:38.027+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=Autotrader_ETL_DAG, task_id=create_listing_fact, execution_date=20230912T124416, start_date=20230912T130336, end_date=20230912T130338
+[2023-09-12T13:03:38.053+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2023-09-12T13:03:38.076+0000] {taskinstance.py:2784} INFO - 1 downstream tasks scheduled from follow-on schedule check

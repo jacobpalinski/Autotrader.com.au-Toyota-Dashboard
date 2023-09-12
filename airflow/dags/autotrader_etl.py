@@ -88,20 +88,13 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
         task_id = 'remove_nulls',
         sql = '''DELETE autotrader-toyota-dashboard.autotrader_staging.listings_raw
         WHERE
-        NOT EXISTS (
-        SELECT
-        *
-        FROM
-        autotrader-toyota-dashboard.autotrader_staging.listings_raw
-        WHERE
-        NOT ( price IS NULL
+        price IS NULL
         OR odometer IS NULL
         OR year IS NULL
         OR car_model IS NULL
         OR type IS NULL
         OR suburb IS NULL
         OR state IS NULL 
-        ))
         OR odometer = '';''',
         gcp_conn_id = 'google_cloud',
         use_legacy_sql = False

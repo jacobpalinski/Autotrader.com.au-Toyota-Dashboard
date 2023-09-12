@@ -21,7 +21,7 @@ def extract_listings(current_date):
     # Bypass cloudflare protection
     scraper = cloudscraper.create_scraper()
     
-    while True and page < 100:
+    while True:
         try:
             response = scraper.get(url, params = {'page': page})
             if response.status_code != 200:
