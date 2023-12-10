@@ -1,0 +1,126 @@
+[2023-12-05T02:26:00.281+0000] {processor.py:157} INFO - Started process (PID=172) to work on /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:26:00.283+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/autotrader_etl.py for tasks to queue
+[2023-12-05T02:26:00.290+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:26:00.289+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:26:00.648+0000] {processor.py:839} INFO - DAG(s) dict_keys(['Autotrader_ETL_DAG']) retrieved from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:26:01.016+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:26:01.016+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2023-12-05T02:26:01.059+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:26:01.059+0000] {dag.py:3677} INFO - Setting next_dagrun for Autotrader_ETL_DAG to 2023-12-05T00:00:00+00:00, run_after=2023-12-06T00:00:00+00:00
+[2023-12-05T02:26:01.088+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/autotrader_etl.py took 0.815 seconds
+[2023-12-05T02:26:31.294+0000] {processor.py:157} INFO - Started process (PID=177) to work on /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:26:31.298+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/autotrader_etl.py for tasks to queue
+[2023-12-05T02:26:31.305+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:26:31.304+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:26:31.575+0000] {processor.py:839} INFO - DAG(s) dict_keys(['Autotrader_ETL_DAG']) retrieved from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:26:31.630+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:26:31.628+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2023-12-05T02:26:31.685+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:26:31.685+0000] {dag.py:3677} INFO - Setting next_dagrun for Autotrader_ETL_DAG to 2023-12-05T00:00:00+00:00, run_after=2023-12-06T00:00:00+00:00
+[2023-12-05T02:26:31.713+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/autotrader_etl.py took 0.423 seconds
+[2023-12-05T02:27:01.892+0000] {processor.py:157} INFO - Started process (PID=182) to work on /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:27:01.894+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/autotrader_etl.py for tasks to queue
+[2023-12-05T02:27:01.901+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:27:01.900+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:27:02.068+0000] {processor.py:839} INFO - DAG(s) dict_keys(['Autotrader_ETL_DAG']) retrieved from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:27:02.106+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:27:02.105+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2023-12-05T02:27:02.142+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:27:02.142+0000] {dag.py:3677} INFO - Setting next_dagrun for Autotrader_ETL_DAG to 2023-12-05T00:00:00+00:00, run_after=2023-12-06T00:00:00+00:00
+[2023-12-05T02:27:02.168+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/autotrader_etl.py took 0.279 seconds
+[2023-12-05T02:27:32.343+0000] {processor.py:157} INFO - Started process (PID=187) to work on /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:27:32.344+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/autotrader_etl.py for tasks to queue
+[2023-12-05T02:27:32.347+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:27:32.346+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:27:32.475+0000] {processor.py:839} INFO - DAG(s) dict_keys(['Autotrader_ETL_DAG']) retrieved from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:27:32.498+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:27:32.497+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2023-12-05T02:27:32.517+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:27:32.516+0000] {dag.py:3677} INFO - Setting next_dagrun for Autotrader_ETL_DAG to 2023-12-05T00:00:00+00:00, run_after=2023-12-06T00:00:00+00:00
+[2023-12-05T02:27:32.532+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/autotrader_etl.py took 0.191 seconds
+[2023-12-05T02:28:02.705+0000] {processor.py:157} INFO - Started process (PID=192) to work on /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:28:02.706+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/autotrader_etl.py for tasks to queue
+[2023-12-05T02:28:02.708+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:28:02.708+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:28:02.831+0000] {processor.py:839} INFO - DAG(s) dict_keys(['Autotrader_ETL_DAG']) retrieved from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:28:02.856+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:28:02.856+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2023-12-05T02:28:02.876+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:28:02.875+0000] {dag.py:3677} INFO - Setting next_dagrun for Autotrader_ETL_DAG to 2023-12-05T00:00:00+00:00, run_after=2023-12-06T00:00:00+00:00
+[2023-12-05T02:28:02.902+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/autotrader_etl.py took 0.199 seconds
+[2023-12-05T02:28:33.074+0000] {processor.py:157} INFO - Started process (PID=197) to work on /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:28:33.076+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/autotrader_etl.py for tasks to queue
+[2023-12-05T02:28:33.078+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:28:33.077+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:28:33.194+0000] {processor.py:839} INFO - DAG(s) dict_keys(['Autotrader_ETL_DAG']) retrieved from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:28:33.215+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:28:33.215+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2023-12-05T02:28:33.236+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:28:33.236+0000] {dag.py:3677} INFO - Setting next_dagrun for Autotrader_ETL_DAG to 2023-12-05T00:00:00+00:00, run_after=2023-12-06T00:00:00+00:00
+[2023-12-05T02:28:33.260+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/autotrader_etl.py took 0.189 seconds
+[2023-12-05T02:29:03.437+0000] {processor.py:157} INFO - Started process (PID=202) to work on /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:29:03.438+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/autotrader_etl.py for tasks to queue
+[2023-12-05T02:29:03.440+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:29:03.439+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:29:03.574+0000] {processor.py:839} INFO - DAG(s) dict_keys(['Autotrader_ETL_DAG']) retrieved from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:29:03.617+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:29:03.616+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2023-12-05T02:29:03.637+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:29:03.637+0000] {dag.py:3677} INFO - Setting next_dagrun for Autotrader_ETL_DAG to 2023-12-05T00:00:00+00:00, run_after=2023-12-06T00:00:00+00:00
+[2023-12-05T02:29:03.658+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/autotrader_etl.py took 0.223 seconds
+[2023-12-05T02:29:33.828+0000] {processor.py:157} INFO - Started process (PID=207) to work on /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:29:33.828+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/autotrader_etl.py for tasks to queue
+[2023-12-05T02:29:33.830+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:29:33.830+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:29:33.948+0000] {processor.py:839} INFO - DAG(s) dict_keys(['Autotrader_ETL_DAG']) retrieved from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:29:33.972+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:29:33.971+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2023-12-05T02:29:33.990+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:29:33.990+0000] {dag.py:3677} INFO - Setting next_dagrun for Autotrader_ETL_DAG to 2023-12-05T00:00:00+00:00, run_after=2023-12-06T00:00:00+00:00
+[2023-12-05T02:29:34.014+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/autotrader_etl.py took 0.189 seconds
+[2023-12-05T02:30:04.206+0000] {processor.py:157} INFO - Started process (PID=212) to work on /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:30:04.208+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/autotrader_etl.py for tasks to queue
+[2023-12-05T02:30:04.212+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:30:04.212+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:30:04.365+0000] {processor.py:839} INFO - DAG(s) dict_keys(['Autotrader_ETL_DAG']) retrieved from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:30:04.402+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:30:04.402+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2023-12-05T02:30:04.429+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:30:04.429+0000] {dag.py:3677} INFO - Setting next_dagrun for Autotrader_ETL_DAG to 2023-12-05T00:00:00+00:00, run_after=2023-12-06T00:00:00+00:00
+[2023-12-05T02:30:04.449+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/autotrader_etl.py took 0.251 seconds
+[2023-12-05T02:30:34.627+0000] {processor.py:157} INFO - Started process (PID=217) to work on /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:30:34.628+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/autotrader_etl.py for tasks to queue
+[2023-12-05T02:30:34.631+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:30:34.631+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:30:34.744+0000] {processor.py:839} INFO - DAG(s) dict_keys(['Autotrader_ETL_DAG']) retrieved from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:30:34.764+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:30:34.764+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2023-12-05T02:30:34.782+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:30:34.781+0000] {dag.py:3677} INFO - Setting next_dagrun for Autotrader_ETL_DAG to 2023-12-05T00:00:00+00:00, run_after=2023-12-06T00:00:00+00:00
+[2023-12-05T02:30:34.797+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/autotrader_etl.py took 0.173 seconds
+[2023-12-05T02:31:04.844+0000] {processor.py:157} INFO - Started process (PID=222) to work on /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:31:04.845+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/autotrader_etl.py for tasks to queue
+[2023-12-05T02:31:04.847+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:31:04.847+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:31:04.958+0000] {processor.py:839} INFO - DAG(s) dict_keys(['Autotrader_ETL_DAG']) retrieved from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:31:04.979+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:31:04.978+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2023-12-05T02:31:04.997+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:31:04.997+0000] {dag.py:3677} INFO - Setting next_dagrun for Autotrader_ETL_DAG to 2023-12-05T00:00:00+00:00, run_after=2023-12-06T00:00:00+00:00
+[2023-12-05T02:31:05.013+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/autotrader_etl.py took 0.172 seconds
+[2023-12-05T02:31:35.139+0000] {processor.py:157} INFO - Started process (PID=227) to work on /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:31:35.140+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/autotrader_etl.py for tasks to queue
+[2023-12-05T02:31:35.141+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:31:35.141+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:31:35.257+0000] {processor.py:839} INFO - DAG(s) dict_keys(['Autotrader_ETL_DAG']) retrieved from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:31:35.281+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:31:35.280+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2023-12-05T02:31:35.305+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:31:35.305+0000] {dag.py:3677} INFO - Setting next_dagrun for Autotrader_ETL_DAG to 2023-12-05T00:00:00+00:00, run_after=2023-12-06T00:00:00+00:00
+[2023-12-05T02:31:35.323+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/autotrader_etl.py took 0.186 seconds
+[2023-12-05T02:32:05.491+0000] {processor.py:157} INFO - Started process (PID=232) to work on /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:32:05.491+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/autotrader_etl.py for tasks to queue
+[2023-12-05T02:32:05.493+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:32:05.493+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:32:05.608+0000] {processor.py:839} INFO - DAG(s) dict_keys(['Autotrader_ETL_DAG']) retrieved from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:32:05.630+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:32:05.629+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2023-12-05T02:32:05.650+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:32:05.650+0000] {dag.py:3677} INFO - Setting next_dagrun for Autotrader_ETL_DAG to 2023-12-05T00:00:00+00:00, run_after=2023-12-06T00:00:00+00:00
+[2023-12-05T02:32:05.666+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/autotrader_etl.py took 0.178 seconds
+[2023-12-05T02:32:35.837+0000] {processor.py:157} INFO - Started process (PID=237) to work on /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:32:35.838+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/autotrader_etl.py for tasks to queue
+[2023-12-05T02:32:35.839+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:32:35.839+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:32:35.952+0000] {processor.py:839} INFO - DAG(s) dict_keys(['Autotrader_ETL_DAG']) retrieved from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:32:35.974+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:32:35.973+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2023-12-05T02:32:35.992+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:32:35.992+0000] {dag.py:3677} INFO - Setting next_dagrun for Autotrader_ETL_DAG to 2023-12-05T00:00:00+00:00, run_after=2023-12-06T00:00:00+00:00
+[2023-12-05T02:32:36.016+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/autotrader_etl.py took 0.181 seconds
+[2023-12-05T02:33:06.192+0000] {processor.py:157} INFO - Started process (PID=242) to work on /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:33:06.193+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/autotrader_etl.py for tasks to queue
+[2023-12-05T02:33:06.201+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:33:06.200+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:33:06.388+0000] {processor.py:839} INFO - DAG(s) dict_keys(['Autotrader_ETL_DAG']) retrieved from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:33:06.434+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:33:06.433+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2023-12-05T02:33:06.474+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:33:06.474+0000] {dag.py:3677} INFO - Setting next_dagrun for Autotrader_ETL_DAG to 2023-12-05T00:00:00+00:00, run_after=2023-12-06T00:00:00+00:00
+[2023-12-05T02:33:06.497+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/autotrader_etl.py took 0.313 seconds
+[2023-12-05T02:33:36.689+0000] {processor.py:157} INFO - Started process (PID=247) to work on /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:33:36.692+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/autotrader_etl.py for tasks to queue
+[2023-12-05T02:33:36.697+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:33:36.696+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:33:36.824+0000] {processor.py:839} INFO - DAG(s) dict_keys(['Autotrader_ETL_DAG']) retrieved from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:33:36.862+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:33:36.862+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2023-12-05T02:33:36.893+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:33:36.893+0000] {dag.py:3677} INFO - Setting next_dagrun for Autotrader_ETL_DAG to 2023-12-05T00:00:00+00:00, run_after=2023-12-06T00:00:00+00:00
+[2023-12-05T02:33:36.913+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/autotrader_etl.py took 0.228 seconds
+[2023-12-05T02:34:07.087+0000] {processor.py:157} INFO - Started process (PID=252) to work on /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:34:07.088+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/autotrader_etl.py for tasks to queue
+[2023-12-05T02:34:07.090+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:34:07.090+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:34:07.204+0000] {processor.py:839} INFO - DAG(s) dict_keys(['Autotrader_ETL_DAG']) retrieved from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:34:07.225+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:34:07.224+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2023-12-05T02:34:07.244+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:34:07.244+0000] {dag.py:3677} INFO - Setting next_dagrun for Autotrader_ETL_DAG to 2023-12-05T00:00:00+00:00, run_after=2023-12-06T00:00:00+00:00
+[2023-12-05T02:34:07.270+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/autotrader_etl.py took 0.186 seconds
+[2023-12-05T02:34:37.448+0000] {processor.py:157} INFO - Started process (PID=257) to work on /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:34:37.449+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/autotrader_etl.py for tasks to queue
+[2023-12-05T02:34:37.451+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:34:37.451+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:34:37.566+0000] {processor.py:839} INFO - DAG(s) dict_keys(['Autotrader_ETL_DAG']) retrieved from /opt/airflow/dags/autotrader_etl.py
+[2023-12-05T02:34:37.588+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:34:37.587+0000] {dag.py:2907} INFO - Sync 1 DAGs
+[2023-12-05T02:34:37.610+0000] {logging_mixin.py:151} INFO - [2023-12-05T02:34:37.609+0000] {dag.py:3677} INFO - Setting next_dagrun for Autotrader_ETL_DAG to 2023-12-05T00:00:00+00:00, run_after=2023-12-06T00:00:00+00:00
+[2023-12-05T02:34:37.627+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/autotrader_etl.py took 0.180 seconds

@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: listings_obt
+    description: obt creation for dashboard use
+    columns:
+      - name: avg_price_national
+        description: avg price nationally for a given car model, year combination
+        tests:
+          - not_null
+      - name: avg_price_state
+        description: avg price nationally for a given car model, year, state combination
+        tests:
+          - not_null

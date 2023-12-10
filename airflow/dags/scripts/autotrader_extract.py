@@ -9,10 +9,11 @@ import csv
 from datetime import datetime
 from dotenv import load_dotenv
 import json
+from time import sleep
 
 current_date = datetime.now().strftime('%Y-%m-%d')
 
-def extract_listings(current_date):
+def extract_listings(current_date: str) -> str:
     # Scrape results from each page of used Toyota listings
     url = 'https://www.autotrader.com.au/for-sale/used/toyota'
     extracted_listings = []
@@ -23,15 +24,18 @@ def extract_listings(current_date):
     
     while True:
         try:
+            print(page)
             response = scraper.get(url, params = {'page': page})
             if response.status_code != 200:
-                raise Exception(f'Error loading page with status code {response.status_code}')
+                sleep(7) # Extend sleep for future
+                #raise Exception(f'Error loading page with status code {response.status_code}')
             soup = BeautifulSoup(response.text, 'html.parser')
             listings = soup.find_all('a', class_ = 'carListing')
             # Break loop if no listings as this means all pages have been scraped
             if not listings:
                 break
             for listing in listings:
+                # Data to be extracted from listing display
                 price = listing.find('span', class_ = 'carListingPrice--advertisedPrice').text if listing.find('span', class_ = 'carListingPrice--advertisedPrice') != None else None
                 odometer = listing.find('span', class_ = 'carListing--mileage').text
                 year = re.search(r'\d+',listing.find('h3', class_ = 'carListing--title').text).group()
@@ -39,7 +43,7 @@ def extract_listings(current_date):
                 type = listing.find('span', class_ = 'variant').text
                 suburb = listing.find('div', class_ = 'carListing--location').text.split(', ', 1)[0]
                 state = listing.find('div', class_ = 'carListing--location').text.split(', ', 1)[1].split()[0]
-                extracted_listings.append({'price': price, 'odometer': odometer, 'year': year, 'car_model': car_model, 'type': type,
+                extracted_listings.append({'date': current_date, 'price': price, 'odometer': odometer, 'year': year, 'car_model': car_model, 'type': type,
                 'suburb': suburb, 'state': state})
             page += 1
         except Exception as error:

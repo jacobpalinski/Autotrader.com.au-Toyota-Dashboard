@@ -1,0 +1,33 @@
+name: 'autotrader_toyota_dbt'
+version: '1.0.0'
+profile: 'autotrader_toyota_dbt'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+vars:
+  'dbt_date:time_zone': 'Asia/Singapore'
+
+models:
+  autotrader_toyota_dbt:
+    staging:
+      +enabled: true
+      +materialized: table
+      +schema: staging
+    warehouse:
+      +enabled: true
+      +materialized: table
+      +schema: warehouse
+    analytics:
+      +enabled: true
+      +materialized: table
+      +schema: analytics

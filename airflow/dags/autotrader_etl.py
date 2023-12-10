@@ -10,7 +10,7 @@ from scripts.autotrader_extract import *
 default_args = {
     'owner': 'airflow',
     'start_date': pendulum.today(),
-    'retries': 1,
+    'retries': 0,
     'retry_delay': timedelta(seconds = 30)
 }
 
@@ -25,6 +25,7 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
         table_id = 'listings_raw',
         project_id = 'autotrader-toyota-dashboard',
         schema_fields = [
+            {'name': 'date', 'type': 'STRING'},
             {'name': 'price', 'type': 'STRING'},
             {'name': 'odometer', 'type': 'STRING'},
             {'name': 'year', 'type': 'STRING'},
@@ -56,6 +57,7 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
         source_objects = f'autotrader-raw-{current_date}.json',
         destination_project_dataset_table = 'autotrader-toyota-dashboard.autotrader_staging.listings_raw',
         schema_fields = [
+            {'name': 'date', 'type': 'STRING'},
             {'name': 'price', 'type': 'STRING'},
             {'name': 'odometer', 'type': 'STRING'},
             {'name': 'year', 'type': 'STRING'},
@@ -84,7 +86,7 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
         write_disposition = 'WRITE_TRUNCATE',
         gcp_conn_id = 'google_cloud'
     )
-    remove_nulls = BigQueryExecuteQueryOperator(
+    """remove_nulls = BigQueryExecuteQueryOperator(
         task_id = 'remove_nulls',
         sql = '''DELETE autotrader-toyota-dashboard.autotrader_staging.listings_raw
         WHERE
@@ -361,11 +363,11 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
         write_disposition = 'WRITE_TRUNCATE',
         gcp_conn_id = 'google_cloud',
         use_legacy_sql = False
-    )
+    )"""
     
-    extract >> [create_listings_raw_table, create_australian_suburbs_table] >> empty1 >> [insert_raw_data_into_listings_raw, insert_csv_data_into_australian_suburbs_table] \
-    >> remove_nulls >> uppercase_columns >> format_columns >> string_to_int >> [create_car_dim, create_location_dim] \
-    >> empty2 >> [insert_into_car_dim, insert_into_location_dim] >> create_listing_fact >> insert_into_listing_fact >> create_looker_table >> calculate_price_averages
+    extract >> [create_listings_raw_table, create_australian_suburbs_table] >> empty1 >> [insert_raw_data_into_listings_raw, insert_csv_data_into_australian_suburbs_table]
+    """>> remove_nulls >> uppercase_columns >> format_columns >> string_to_int >> [create_car_dim, create_location_dim] \
+    >> empty2 >> [insert_into_car_dim, insert_into_location_dim] >> create_listing_fact >> insert_into_listing_fact >> create_looker_table >> calculate_price_averages"""
     
 
 

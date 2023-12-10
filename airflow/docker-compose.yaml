@@ -76,6 +76,7 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
     - ${AIRFLOW_PROJ_DIR:-.}/.env:/opt/airflow/.env
+    - ${AIRFLOW_PROJ_DIR:-.}/dbt:/opt/airflow/dbt
     
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
@@ -85,7 +86,7 @@ x-airflow-common:
 
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:15
     ports: 
       - "5433:5432"
     environment:
@@ -100,7 +101,7 @@ services:
       retries: 5
       start_period: 5s
     restart: always
-
+    
   airflow-webserver:
     <<: *airflow-common
     command: webserver
