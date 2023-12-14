@@ -27,7 +27,7 @@ def extract_listings(current_date: str) -> str:
             print(page)
             response = scraper.get(url, params = {'page': page})
             if response.status_code != 200:
-                sleep(10) # For pages that are slow to load
+                sleep(15) # For pages that are slow to load
             soup = BeautifulSoup(response.text, 'html.parser')
             listings = soup.find_all('a', class_ = 'carListing')
             # Break loop if no listings as this means all pages have been scraped

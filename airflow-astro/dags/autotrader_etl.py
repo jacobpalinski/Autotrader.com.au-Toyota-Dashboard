@@ -9,13 +9,13 @@ from include.dbt.cosmos_config import DBT_PROJECT_CONFIG, DBT_CONFIG
 from cosmos.airflow.task_group import DbtTaskGroup
 from cosmos.constants import LoadMode
 from cosmos.config import ProjectConfig, RenderConfig
-from scripts.autotrader_extract import *
+from scripts.autotrader_extract import current_date, extract_listings
 
 default_args = {
     'owner': 'airflow',
     'start_date': pendulum.today(),
     'retries': 0,
-    'retry_delay': timedelta(seconds = 30)
+    'retry_delay': timedelta(seconds = 60)
 }
 
 with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_interval = timedelta(1), catchup = False) as dag:
@@ -100,7 +100,7 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
             select=['path:models/staging']
         )
     )
-    warehouse = DbtTaskGroup(
+    warehouse1 = DbtTaskGroup(
         group_id='warehouse',
         project_config=DBT_PROJECT_CONFIG,
         profile_config=DBT_CONFIG,
@@ -119,7 +119,7 @@ with DAG(dag_id = 'Autotrader_ETL_DAG', default_args = default_args, schedule_in
         )
     )
     extract >> [create_listings_raw_table, create_australian_suburbs_table] >> empty1 >> [insert_raw_data_into_listings_raw, insert_csv_data_into_australian_suburbs_table] \
-    >> empty2 >> staging >> warehouse >> analytics
+    >> empty2 >> staging >> warehouse1 >> analytics
     
 
 
