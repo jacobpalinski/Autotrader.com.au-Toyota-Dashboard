@@ -30,10 +30,10 @@ and listings_staging.state = location_dim.state
 where not exists (
     select 1
     from `autotrader-toyota-dashboard`.`autotrader_warehouse`.`listing_fact` listing_fact
-    where listing_fact.date_key = date_dim.date_key
-    and listing_fact.car_key = car_dim.car_key
+    where listing_fact.car_key = car_dim.car_key
     and listing_fact.location_key = location_dim.location_key
-
+    and listing_fact.price = listings_staging.price
+    and listing_fact.odometer = listings_staging.odometer
 )
 
         ) as DBT_INTERNAL_SOURCE

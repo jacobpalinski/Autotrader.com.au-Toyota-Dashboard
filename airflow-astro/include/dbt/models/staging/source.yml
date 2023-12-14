@@ -1,7 +1,0 @@
-version: 2 
-sources:
-  - name: raw
-    schema: autotrader_raw
-    tables: 
-      - name: australian_suburbs
-      - name: listings_raw
